@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="divPan">
+        <p-image src="assets/bancopan.png" alt="image"></p-image>
+    </div>
+    <button pButton (click)="showAddCustumer()" class="p-button-rounded buttonadd" label="Adicionar Usuário" icon="pi pi-plus-circle" iconPos="right"></button>
+    <div *ngFor="let customer of customers; let i = index;">
+        <p-card class="pcard" 
+            [style]="{'width': '20rem', 'margin-bottom': '1em', 'display': 'inline-block', 'text-align': 'left', 'border-left': '10px solid #303030'}" 
+            styleClass="p-card-shadow">
+            <h2> {{customer.name}} </h2>
+            <p><strong>CPF: </strong>{{customer.cpf | mask: '000.000.000-00'}} </p>
+            <p><strong>E-mail: </strong> {{customer.email}} </p>
+            <p><strong>Telefone: </strong> {{customer.phone | mask: '(00) 00000-0000'}} </p>
+            <ng-template pTemplate="footer">
+                <button pButton (click)="showEditCustumer(i)" class="buttoncustom p-button-rounded" icon="pi pi-user-edit" [style]=""></button>
+                <button pButton (click)="showModalDel(i)" class="buttoncustom p-button-rounded" icon="pi pi-times" [style]="{'margin-left': '1em'}"></button> 
+                <p-dialog header="Excluir Cliente" [(visible)]="displayConfirmDel" [modal]="true">
+                    <p>Deseja excluir o cliente: <span>{{customer.name}}</span> ?</p>
+                    <ng-template pTemplate="footer">
+                        <button pButton icon="pi pi-check" (click)="delCustumer()" label="Excluir" styleClass="p-button-text" class="p-button-rounded "></button>
+                        <button pButton icon="pi pi-times" (click)="closeModalDel()" label="Cancelar" styleClass="p-button-text" class="p-button-rounded p-button-secondary"></button>
+                    </ng-template>
+                </p-dialog>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
